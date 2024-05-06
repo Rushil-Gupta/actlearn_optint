@@ -115,6 +115,7 @@ if __name__ == '__main__':
 		Prob = {}
 		
 		opts.active = False
+		opts.time=False
 		A['passive'], Prob['passive'] = run(problem, opts)
 
 		opts.active = True

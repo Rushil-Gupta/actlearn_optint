@@ -8,23 +8,24 @@ from copy import deepcopy
 
 
 NNODES = 36
-PATHSAMPLES = "./data/data+.pkl" ######
+data_dir = "/Tmp/rushil/data/"
+PATHSAMPLES = data_dir + "data+.pkl" ######
 
 class instance(object):
 
 	def __init__(self, combination=False, seed=1234, target=None, miscase=None):
 		if miscase == 'fullyconnected':
-			PATHDAG = "./data/estimated_fully_connected_dag.pkl"
+			PATHDAG = data_dir + "estimated_fully_connected_dag.pkl"
 		elif miscase == 'reverse':
-			PATHDAG = "./data/estimated_reverse_dag.pkl" 
+			PATHDAG = data_dir + "estimated_reverse_dag.pkl" 
 		elif miscase == 'random':
-			PATHDAG = "./data/random_dag.pkl"
+			PATHDAG = data_dir + "random_dag.pkl"
 		elif miscase == 'randomfullyconnected':
-			PATHDAG = "./data/random_fully_connected_dag.pkl" 
+			PATHDAG = data_dir + "random_fully_connected_dag.pkl" 
 		elif miscase == 'reversefullyconnected':
-			PATHDAG = "./data/reverse_fully_connected_dag.pkl"
+			PATHDAG = data_dir + "reverse_fully_connected_dag.pkl"
 		else:
-			PATHDAG = "./data/estimated_dag.pkl"
+			PATHDAG = data_dir + "estimated_dag.pkl"
 		print(PATHDAG)
 		print(PATHSAMPLES)
 
@@ -34,7 +35,7 @@ class instance(object):
 		
 		with open(PATHDAG, 'rb') as file:
 			dag = pickle.load(file)
-			with open("./data/gene_dict.pkl", 'rb') as f:
+			with open(data_dir + "gene_dict.pkl", 'rb') as f:
 				mapping = pickle.load(f)
 				nx.relabel_nodes(dag, mapping, copy=False)
 		self.DAG = DAG.from_nx(dag)

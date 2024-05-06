@@ -1,7 +1,6 @@
 name: actlearn
 channels:
   - pyviz
-  - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
@@ -33,8 +32,6 @@ dependencies:
   - cryptography=37.0.1=py39h9ce1e76_0
   - cycler=0.11.0=pyhd3eb1b0_0
   - cytoolz=0.11.0=py39h27cfd23_0
-  - dask=2021.10.0=pyhd3eb1b0_0
-  - dask-core=2021.10.0=pyhd3eb1b0_0
   - datashader=0.13.0=pyhd3eb1b0_1
   - datashape=0.5.4=py39h06a4308_1
   - debugpy=1.5.1=py39h295c915_0
@@ -140,7 +137,6 @@ dependencies:
   - networkx=2.6.3=pyhd3eb1b0_0
   - notebook=6.4.11=py39h06a4308_0
   - numexpr=2.8.1=py39h6abb31d_0
-  - openssl=3.0.3=h166bdaf_0
   - packaging=21.3=pyhd3eb1b0_0
   - pandas=1.4.1=py39h295c915_0
   - pandocfilters=1.5.0=pyhd3eb1b0_0
@@ -169,7 +165,7 @@ dependencies:
   - pyparsing=3.0.4=pyhd3eb1b0_0
   - pyrsistent=0.18.0=py39heee7806_0
   - pysocks=1.7.1=py39h06a4308_0
-  - python=3.9.10=hc74c709_2_cpython
+  # - python=3.9.10=hc74c709_2_cpython
   - python-dateutil=2.8.2=pyhd8ed1ab_0
   - python-fastjsonschema=2.15.1=pyhd3eb1b0_0
   - python-igraph=0.9.9=py39hfef886c_0
@@ -223,63 +219,63 @@ dependencies:
   - zipp=3.8.0=py39h06a4308_0
   - zlib=1.2.11=h36c2ea0_1013
   - zstd=1.4.9=haebb681_0
-  - pip:
-    - anndata==0.8.0
-    - appdirs==1.4.4
-    - beautifulsoup4==4.10.0
-    - bioservices==1.8.4
-    - cattrs==1.10.0
-    - causaldag==0.1a163
-    - charset-normalizer==2.0.12
-    - colorlog==6.6.0
-    - conditional-independence==0.1a5
-    - contrastive==1.1.0
-    - dataclasses==0.6
-    - easydev==0.12.0
-    - fonttools==4.30.0
-    - frozendict==2.3.0
-    - future==0.18.2
-    - gevent==21.12.0
-    - graphical-model-learning==0.1a7
-    - graphical-models==0.1a13
-    - graphviz==0.20.1
-    - greenlet==1.1.2
-    - grequests==0.6.0
-    - gseapy==0.10.8
-    - h5py==3.6.0
-    - ipdb==0.13.9
-    - kiwisolver==1.3.2
-    - louvain==0.7.1
-    - lxml==4.8.0
-    - matplotlib-venn==0.11.6
-    - natsort==8.1.0
-    - numba==0.55.2
-    - numpy==1.22.3
-    - patsy==0.5.2
-    - pillow==9.0.1
-    - progressbar2==4.0.0
-    - pygam==0.8.0
-    - pynndescent==0.5.6
-    - python-utils==3.1.0
-    - requests-cache==0.9.3
-    - scanpy==1.9.1
-    - scikit-learn==1.0.2
-    - scikit-network==0.25.0
-    - scipy==1.8.0
-    - seaborn==0.11.2
-    - session-info==1.0.0
-    - sklearn==0.0
-    - statsmodels==0.13.2
-    - stdlib-list==0.8.0
-    - suds-community==1.0.0
-    - toml==0.10.2
-    - tqdm==4.63.0
-    - typing==3.7.4.3
-    - umap-learn==0.5.2
-    - url-normalize==1.4.3
-    - urllib3==1.26.8
-    - wrapt==1.14.0
-    - xmltodict==0.12.0
-    - zope-event==4.5.0
-    - zope-interface==5.4.0
+  # - pip:
+  #   - anndata==0.8.0
+  #   - appdirs==1.4.4
+  #   - beautifulsoup4==4.10.0
+  #   - bioservices==1.8.4
+  #   - cattrs==1.10.0
+  #   - causaldag==0.1a163
+  #   - charset-normalizer==2.0.12
+  #   - colorlog==6.6.0
+  #   - conditional-independence==0.1a5
+  #   - contrastive==1.1.0
+  #   - dataclasses==0.6
+  #   - easydev==0.12.0
+  #   - fonttools==4.30.0
+  #   - frozendict==2.3.0
+  #   - future==0.18.2
+  #   - gevent==21.12.0
+  #   - graphical-model-learning==0.1a7
+  #   - graphical-models==0.1a13
+  #   - graphviz==0.20.1
+  #   - greenlet==1.1.2
+  #   - grequests==0.6.0
+  #   - gseapy==0.10.8
+  #   - h5py==3.6.0
+  #   - ipdb==0.13.9
+  #   - kiwisolver==1.3.2
+  #   - louvain==0.7.1
+  #   - lxml==4.8.0
+  #   - matplotlib-venn==0.11.6
+  #   - natsort==8.1.0
+  #   - numba==0.55.2
+  #   - numpy==1.22.3
+  #   - patsy==0.5.2
+  #   - pillow==9.0.1
+  #   - progressbar2==4.0.0
+  #   - pygam==0.8.0
+  #   - pynndescent==0.5.6
+  #   - python-utils==3.1.0
+  #   - requests-cache==0.9.3
+  #   - scanpy==1.9.1
+  #   - scikit-learn==1.0.2
+  #   - scikit-network==0.25.0
+  #   - scipy==1.8.0
+  #   - seaborn==0.11.2
+  #   - session-info==1.0.0
+  #   - sklearn==0.0
+  #   - statsmodels==0.13.2
+  #   - stdlib-list==0.8.0
+  #   - suds-community==1.0.0
+  #   - toml==0.10.2
+  #   - tqdm==4.63.0
+  #   - typing==3.7.4.3
+  #   - umap-learn==0.5.2
+  #   - url-normalize==1.4.3
+  #   - urllib3==1.26.8
+  #   - wrapt==1.14.0
+  #   - xmltodict==0.12.0
+  #   - zope-event==4.5.0
+  #   - zope-interface==5.4.0
 prefix: /home/vzhang/miniconda3/envs/actlearn
