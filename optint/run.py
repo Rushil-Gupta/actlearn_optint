@@ -10,8 +10,8 @@ import numpy as np
 from tqdm import tqdm
 import timeit
 
-from optint.data import synthetic_instance, gen_dag
-from optint.test import test_passive, test_active
+from data import synthetic_instance, gen_dag
+from test import test_passive, test_active
 
 
 def run(problem, opts):

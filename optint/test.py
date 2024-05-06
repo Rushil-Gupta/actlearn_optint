@@ -1,7 +1,7 @@
 import numpy as np
 
-from optint.model import linearSCM
-from optint.acquisition import *
+from model import linearSCM
+from acquisition import *
 
 
 def test_passive(problem, opts):
