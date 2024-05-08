@@ -47,6 +47,14 @@ class civ_acq(acquisition):
 		elif measure == 'ow':
 			self.weight = (np.maximum(0.1,1 - k**2))**((4-nnodes)/2) * (k**2)
 			self.c1 = self.sigma_square + 16 * self.weight / np.sum(self.weight)
+		elif measure == 'exp':
+			lambda_param = 1.0 
+			self.weight = np.exp(-lambda_param * k**2)
+			self.c1 = self.sigma_square + self.weight / np.sum(self.weight)
+		elif measure == 'norm':
+			distances = k**2
+			normalized_distances = distances / np.sum(distances)
+			self.c1 = self.sigma_square + normalized_distances
 		else:
 			assert False, "Unsupported measure for civ: {}".format(measure)
 
