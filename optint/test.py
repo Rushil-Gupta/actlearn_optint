@@ -45,7 +45,8 @@ def test_active(problem, opts):
 		'cv': cv_acq,
 		'mi': mi_acq,
 		'ei': ei_acq,
-		'ucb': ucb_acq
+		'ucb': ucb_acq,
+		'grad': grad_acq
 	}.get(opts.acq, None)
 	assert acq is not None, "Unsupported functions!"
 
@@ -93,7 +94,8 @@ def test_active(problem, opts):
 			except AttributeError:
 				a = np.random.uniform(-1,1, problem.nnodes).reshape(-1,1)
 				a = a / np.linalg.norm(a) 
-
+		
+		print(a)
 		batch = problem.sample(a, opts.n)
 		model.update_posterior(a, batch)
 

@@ -47,14 +47,6 @@ class civ_acq(acquisition):
 		elif measure == 'ow':
 			self.weight = (np.maximum(0.1,1 - k**2))**((4-nnodes)/2) * (k**2)
 			self.c1 = self.sigma_square + 16 * self.weight / np.sum(self.weight)
-		elif measure == 'exp':
-			lambda_param = 1.0 
-			self.weight = np.exp(-lambda_param * k**2)
-			self.c1 = self.sigma_square + self.weight / np.sum(self.weight)
-		elif measure == 'norm':
-			distances = k**2
-			normalized_distances = distances / np.sum(distances)
-			self.c1 = self.sigma_square + normalized_distances
 		else:
 			assert False, "Unsupported measure for civ: {}".format(measure)
 
@@ -239,3 +231,32 @@ class mi_acq(sample_acquisition):
 			sum += np.sum(log_vars).item()
 
 		return sum / mc_samples
+	
+class grad_acq(sample_acquisition):
+	def __init__(self, sigma_square, mean, var, mu_target, n):
+		super().__init__(sigma_square, mean, var, mu_target, n)
+		self.nnodes = len(mean)
+
+
+	def optimize(self, x0, num_iterations=10, learning_rate=0.001):
+		a = x0
+		for _ in range(num_iterations):
+			self.epsilon = np.random.multivariate_normal(np.zeros(self.nnodes), np.diag(self.sigma_square.flatten()))
+			grad = self.grad(a)
+			a -= learning_rate * grad
+			a = np.clip(a, -1, 1)
+		return a
+	
+	def grad(self, a):
+		n=len(a)
+		term = a + (1/n) * np.sum(self.epsilon, axis=0) - (np.eye(self.nnodes)-self.B) @ self.mu_target
+		gradient = 2 * term 
+		return gradient
+	
+	def evaluate(self, a):
+		n = len(a)
+		term = a + (1/n) * np.sum(self.epsilon, axis=0) - (np.eye(self.nnodes)-self.B) @ self.mu_target
+		loss = np.dot(term.T, term)
+		return loss
+    	
+
