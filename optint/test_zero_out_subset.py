@@ -3,6 +3,10 @@ import numpy as np
 from model import linearSCM
 from acquisition import *
 
+def zero_out_intervention(nnodes, a):
+	fix_subset = 15
+	a[:fix_subset][0] = 0
+	return a
 
 def test_passive(problem, opts):
 	A = []
@@ -12,7 +16,7 @@ def test_passive(problem, opts):
 	for _ in range(opts.T):
 		a = np.random.uniform(-1,1,(problem.nnodes,1))
 		a = a / np.linalg.norm(a)
-
+		a = zero_out_intervention(problem.nnodes,a)
 		batch = problem.sample(a, opts.n)
 		model.update_posterior(a, batch)
 
@@ -31,7 +35,7 @@ def test_active(problem, opts):
 	for _ in range(opts.W):
 		a = np.random.uniform(-1,1,(problem.nnodes,1))
 		a = a / np.linalg.norm(a)
-		
+		a = zero_out_intervention(problem.nnodes,a)
 		batch = problem.sample(a, opts.n)
 		model.update_posterior(a, batch)
 
@@ -45,8 +49,7 @@ def test_active(problem, opts):
 		'cv': cv_acq,
 		'mi': mi_acq,
 		'ei': ei_acq,
-		'ucb': ucb_acq,
-		'grad': grad_acq
+		'ucb': ucb_acq
 	}.get(opts.acq, None)
 	assert acq is not None, "Unsupported functions!"
 
@@ -94,7 +97,7 @@ def test_active(problem, opts):
 			except AttributeError:
 				a = np.random.uniform(-1,1, problem.nnodes).reshape(-1,1)
 				a = a / np.linalg.norm(a) 
-		
+		a = zero_out_intervention(problem.nnodes,a)
 		batch = problem.sample(a, opts.n)
 		model.update_posterior(a, batch)
 

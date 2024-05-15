@@ -61,6 +61,8 @@ def test_active(problem, opts):
 			acquisition = cv_acq(sigma_square, mean, var, problem.mu_target, opts.N)
 		elif opts.acq == 'maxv':
 			acquisition = maxv_acq(sigma_square, mean, var, problem.mu_target, opts.N)
+		elif opts.acq == 'grad':
+			acquisition = grad_acq(sigma_square, mean, var, problem.mu_target, opts.N)
 
 		a = acquisition.optimize(problem.a_pool)
 		batch = problem.sample(a, opts.N)

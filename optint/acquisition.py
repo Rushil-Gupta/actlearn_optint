@@ -236,27 +236,28 @@ class grad_acq(sample_acquisition):
 	def __init__(self, sigma_square, mean, var, mu_target, n):
 		super().__init__(sigma_square, mean, var, mu_target, n)
 		self.nnodes = len(mean)
+		self.B = self.sample_B()
 
-
-	def optimize(self, x0, num_iterations=10, learning_rate=0.001):
-		a = x0
-		for _ in range(num_iterations):
-			self.epsilon = np.random.multivariate_normal(np.zeros(self.nnodes), np.diag(self.sigma_square.flatten()))
+	def optimize(self, x0, num_iterations=30, learning_rate=0.001):
+		a = x0.reshape(-1,1)
+		for iter in range(num_iterations):
 			grad = self.grad(a)
 			a -= learning_rate * grad
 			a = np.clip(a, -1, 1)
 		return a
 	
-	def grad(self, a):
-		n=len(a)
-		term = a + (1/n) * np.sum(self.epsilon, axis=0) - (np.eye(self.nnodes)-self.B) @ self.mu_target
-		gradient = 2 * term 
+	def grad(self, a, num_samples=500, l1_lambda=0):
+		a = a.reshape(-1,1)
+		epsilon = np.random.multivariate_normal(np.zeros(self.nnodes), np.diag(self.sigma_square.flatten()), size=num_samples)
+		term = a + np.mean(epsilon, axis=0).reshape(-1,1) - (np.eye(self.nnodes)-self.B) @ self.mu_target
+		gradient = 2 * term + np.sign(a) * l1_lambda
 		return gradient
 	
-	def evaluate(self, a):
-		n = len(a)
-		term = a + (1/n) * np.sum(self.epsilon, axis=0) - (np.eye(self.nnodes)-self.B) @ self.mu_target
-		loss = np.dot(term.T, term)
-		return loss
+	def evaluate(self, a, num_samples=500, l1_lambda=0):
+		a = a.reshape(-1,1)
+		epsilon = np.random.multivariate_normal(np.zeros(self.nnodes), np.diag(self.sigma_square.flatten()), size=num_samples)
+		term = a + np.mean(epsilon, axis=0).reshape(-1,1) - (np.eye(self.nnodes)-self.B) @ self.mu_target
+		loss = np.dot(term.T, term) + l1_lambda * np.abs(a)
+		return np.mean(loss)
     	
 
